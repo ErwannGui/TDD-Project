@@ -4,25 +4,38 @@ import { AppComponent } from './app.component';
 import {AuthorsComponent} from './authors/authors.component';
 
 import { NgxJsonapiModule } from 'ngx-jsonapi';
+import {AuthorItemComponent} from './author-item/author-item.component';
+import {Router} from '@angular/router';
+import {routes} from './app-routing.module';
 
 describe('AppComponent', () => {
+  /*let location: Location;
+  let router: Router;
+  let fixture;*/
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule/*.withRoutes(routes)*/,
         NgxJsonapiModule.forRoot({
           url: '//jsonapiplayground.reyesoft.com/v2/'
         })
       ],
       declarations: [
         AppComponent,
-        AuthorsComponent
+        AuthorsComponent,
+        AuthorItemComponent
       ],
     }).compileComponents();
   }));
 
+  /*router = TestBed.get(Router);
+  location = TestBed.get(Location);*/
+  // fixture = TestBed.createComponent(AppComponent);
+
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
+    // router.initialNavigation();
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });

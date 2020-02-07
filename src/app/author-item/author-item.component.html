@@ -1,0 +1,14 @@
+<p>AuthorItem Component</p>
+<div class="author-details">
+  <p>{{ name }}</p>
+  <ul *ngIf="books.data.length > 0">
+    <li *ngFor="let book of books.data;" class="book">
+      <p>Title: {{ book.attributes.title }}</p>
+      <p>Published: {{ book.attributes.date_published }}</p>
+      <p>ISBN: {{ book.attributes.isbn }}</p>
+    </li>
+  </ul>
+  <div *ngIf="books.data.length == 0">
+    <p>No book for this author.</p>
+  </div>
+</div>

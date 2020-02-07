@@ -6,12 +6,14 @@ import { NgxJsonapiModule } from 'ngx-jsonapi';
 
 import { AppComponent } from './app.component';
 import { AuthorsComponent } from './authors/authors.component';
+import { AuthorItemComponent } from './author-item/author-item.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthorsComponent
+    AuthorsComponent,
+    AuthorItemComponent
   ],
   imports: [
     BrowserModule,

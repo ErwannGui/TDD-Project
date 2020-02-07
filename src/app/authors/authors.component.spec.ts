@@ -9,11 +9,8 @@ import {of} from 'rxjs';
 import Pretender from 'pretender';
 import set = Reflect.set;
 import {AppRoutingModule} from '../app-routing.module';
+import {AuthorItemComponent} from '../author-item/author-item.component';
 
-/*const authorsToUse: Author[] = [
-  { name: 'The big Lebowski', date_of_birth: '' },
-  { title: 'Fences' } as Author
-];*/
 const authorsToUse = {
   data: [
     {
@@ -37,7 +34,7 @@ async function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const Authors = {
+/* const Authors = {
   data: [
     {
       type: 'authors',
@@ -76,20 +73,21 @@ const Authors = {
     {type: 'authors', id: '8', attributes: {name: 'Miracle Morissette PhD', birthplace: 'Mauritius', date_of_birth: '1986-07-15', date_of_death: '2007-11-08'}, relationships: {photos: {data: []}, books: {data: [{type: 'books', id: '15'}, {type: 'books', id: '43'}, {type: 'books', id: '50'}]}}, links: {self: '/authors/8'}},
     {type: 'authors', id: '9', attributes: {name: 'Kiana Tromp', birthplace: 'Malta', date_of_birth: '1993-06-01', date_of_death: '1975-02-09'}, relationships: {photos: {data: [{type: 'photos', id: '9'}]}, books: {data: [{type: 'books', id: '38'}, {type: 'books', id: '47'}]}}, links: {self: '/authors/9'}},
     {type: 'authors', id: '10', attributes: {name: 'Dr. Rory Rempel DVM', birthplace: 'Saint Helena', date_of_birth: '1974-05-20', date_of_death: '1979-04-05'}, relationships: {photos: {data: [{type: 'photos', id: '10'}, {type: 'photos', id: '11'}]}, books: {data: [{type: 'books', id: '18'}, {type: 'books', id: '23'}]}}, links: {self: '/authors/10'}}
-  ]};
+  ]}; */
 
-const server = new Pretender(function() {
+/*const server = new Pretender(function() {
   this.get('jsonapiplayground.reyesoft.com/v2/', request => {
     console.log(Authors);
     const all =  JSON.stringify(Object.keys(Authors.data).map(k => Authors[k]));
     return [200, {'Content-Type': 'application/json'}, all];
   });
-});
+});*/
 
 describe('AuthorsComponent', () => {
   let component: AuthorsComponent;
   let fixture: ComponentFixture<AuthorsComponent>;
   let authorsService: AuthorsService;
+  let instance;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -100,7 +98,7 @@ describe('AuthorsComponent', () => {
           url: '//jsonapiplayground.reyesoft.com/v2/'
         })
       ],
-      declarations: [ AuthorsComponent ],
+      declarations: [ AuthorsComponent, AuthorItemComponent ],
       providers: [
         AuthorsService
       ],
@@ -116,6 +114,7 @@ describe('AuthorsComponent', () => {
 
     fixture = TestBed.createComponent(AuthorsComponent);
     component = fixture.componentInstance;
+    instance = fixture.debugElement.nativeElement;
     // component.authors = authorsToUse;
     authorsService = TestBed.get(AuthorsService);
 
@@ -134,6 +133,18 @@ describe('AuthorsComponent', () => {
       fixture.detectChanges();
       const authorsElements = fixture.debugElement.queryAll(By.css('.author'));
       expect(authorsElements.length).toBe(10);
+    });
+
+    it('click item', async () => {
+      await component.goToDetails('1');
+      /*const authorLink = instance.querySelector('#author_1');
+      setTimeout(() => {
+        authorLink.click();
+      }, 1000);*/
+      fixture.detectChanges();
+      console.log(location.pathname);
+      expect(location.pathname).toBe('/authors/1');
+      // const authorLink = fixture.debugElement.queryAll(By.css('.a:nth-first-of-type'));
     });
 
   });

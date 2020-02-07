@@ -3,11 +3,12 @@
 
 </ng-container>-->
 
-<p *ngFor="let author of authors.data; trackBy: authors.trackBy" class="author">
-  id: {{ author.id }} <br />
-  name: <span class="author-name">{{ author.attributes.name }}</span> <br />
-  birth date: {{ author.attributes.date_of_birth | date }}
-</p>
+<div *ngFor="let author of authors.data; trackBy: authors.trackBy" class="author">
+  <p>ID: {{ author.id }} </p>
+  <p>Name: <a id="author_{{author.id}}" (click)="goToDetails(author.id)" class="author-name">{{ author.attributes.name }}</a> </p>
+  <p>Birth date: {{ author.attributes.date_of_birth | date }}</p>
+  <hr>
+</div>
 
 <div class="error" *ngIf="error != ''">
   {{ error }}
